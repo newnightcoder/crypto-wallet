@@ -1,0 +1,159 @@
+openapi: 3.0.0
+info:
+  title: My Wallet API
+  version: 0.1.0
+  description: |-
+    This API offers basic crypto payments and wallet management features.
+
+    All endpoints accept and return JSON data only.
+
+    Authentication is done by sending credentials to the `/token` endpoint,
+    which sends back a token. That token must be passed along every subsequent
+    request to the API in an "authorization" header.
+
+    Endpoints are shaped in a REST way and generally conform to standard
+    practices regarding HTTP semantics (verbs, status codes, etc.). 
+    Returned errors are based on the following format:
+
+      {
+        "message": <description of the error>
+      }
+
+    Validation errors might contain an `errors` field as well with more
+    detailed information.
+
+paths:
+  /token:
+    post:
+      summary: Get auth token
+      description: |-
+        Returns a token to authenticate against the API.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token: string
+  /assets:
+    get:
+      description: List assets
+      summary: |-
+        Returns the list of assets in the user's wallet, as well as their balance.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    balance:
+                      type: string
+  /assets/{assetName}/payouts:
+    post:
+      description: Send payout
+      summary: |-
+        Initiates a payment to a destination address for a given asset.
+        Note that payment is an asynchronous operation. The initial
+        response therefore contains a "processing" status. To prevent
+        excessive funds to be withdrawn from the wallet during the operation,
+        the payment amount is immediately withdrawn from the wallet. Some
+        transactions might be rejected for unspecified reasons. In that case,
+        a "rejected" status is set on the original transaction and a separate
+        transaction is automatically made on the user wallet to refund it
+        with the same amount. Otherwise, the transaction ends up with a
+        "confirmed" status.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                destination:
+                  type: string
+                amount:
+                  type: string
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  date:
+                    type: string
+                  destination:
+                    type: string
+                  amount:
+                    type: string
+                  type:
+                    type: [payout]
+                  status:
+                    enum: [processing]
+  /assets/{assetName}/transactions:
+    get:
+      summary: List asset transactions
+      description |-
+        Returns transactions linked to a given asset.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    date:
+                      type: string
+                    destination:
+                      type: string
+                    amount:
+                      type: string
+                    type:
+                      enum: [payout, refund]
+                    status:
+                      enum: [processing, confirmed, rejected]
+  /assets/{assetName}/transactions/{transactionId}:
+    get:
+      summary: Get transaction
+      description: |-
+        Returns a specific transaction.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  date:
+                    type: string
+                  destination:
+                    type: string
+                  amount:
+                    type: string
+                  type:
+                    enum: [payout, refund]
+                  status:
+                    enum: [processing, confirmed, rejected]
