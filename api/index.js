@@ -23,30 +23,37 @@ const rejectedAddresses = {
 
 const assets = {
   btc: {
+    name: "bitcoin",
     balance: "1.0439",
     transactions: [],
   },
   eth: {
+    name: "ethereum",
     balance: "0.7302",
     transactions: [],
   },
   usdt: {
+    name: "tether",
     balance: "425.09",
     transactions: [],
   },
   bnb: {
+    name: "binance coin",
     balance: "13.918701",
     transactions: [],
   },
   usdc: {
+    name: "usd coin",
     balance: "2801.25",
     transactions: [],
   },
   xrp: {
+    name: "xrp",
     balance: "6560.84",
     transactions: [],
   },
   ada: {
+    name: "cardano",
     balance: "412.5",
     transactions: [],
   },

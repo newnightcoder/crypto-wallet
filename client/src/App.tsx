@@ -1,55 +1,41 @@
-import React, { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./auth/authContext";
+import { Layout } from "./components";
+import { Dashboard, Login } from "./routes";
+
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <Login />,
+//     errorElement: <ErrorComponent />,
+//   },
+//   {
+//     path: "/dashboard",
+//     element: <Dashboard />,
+//     errorElement: <ErrorComponent />,
+//   },
+// ]);
+
+const Router = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          {/* Public route */}
+          <Route path="login" element={<Login />} />
+          {/* Private route */}
+          <Route path="dashboard" element={<Dashboard />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
 function App() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const res = await fetch("/token", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-    });
-
-    const json = await res.json();
-    console.log("auth token", json.token);
-  };
-
   return (
-    <div>
-      <h1>My Wallet</h1>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Username:
-          <input
-            type="text"
-            value={username}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setUsername(e.target.value)
-            }
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setPassword(e.target.value)
-            }
-          />
-        </label>
-        <button type="submit">Send</button>
-      </form>
-    </div>
+    <AuthProvider>
+      <Router />
+    </AuthProvider>
   );
 }
 
