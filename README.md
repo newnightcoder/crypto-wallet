@@ -42,17 +42,3 @@ To test payment rejection (see api spec), you can use the following addresses:
 
 - ETH: 0x71C7656EC7ab88b098defB751B7401B5f6d8976F
 - BTC: bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
-
-## Guidelines
-
-- We don't set any rules regarding third-party libraries but the basis should
-  remain in Typescript and React.
-- The API is fully described in the file _openapi.yml_. It should be considered
-  as a black box. Since this is really a frontend exercise, we don't value
-  modifications of its specification or implementation. Note also that it's
-  a toy implementation without a backing database, so restarting the API will
-  refresh the state of the app completely.
-- We are mostly interested in the robustness and appeal of the UI, as well
-  code design and basic quality insurances. However, should you find the time
-  for it, additional frontend features (for example, displaying the amount in EUR
-  for each asset using some third-party API) are also welcome.
