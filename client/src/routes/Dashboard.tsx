@@ -32,7 +32,9 @@ const Dashboard = () => {
           ))}
         </div>
       ) : (
-        <div className="bg-black p-2 text-white text-center">loader</div>
+        <div className="bg-black p-2 text-white text-center border border-red-500">
+          loader
+        </div>
       )}
     </div>
   );
