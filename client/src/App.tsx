@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./auth/authContext";
-import { Layout } from "./components";
-import { Dashboard, Login } from "./routes";
+import { Dashboard, Login, Root } from "./routes";
 
 // const router = createBrowserRouter([
 //   {
@@ -20,7 +19,7 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={<Root />}>
           {/* Public route */}
           <Route path="login" element={<Login />} />
           {/* Private route */}
