@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Dashboard = () => {
   // const token = localStorage.getItem("token");
@@ -8,19 +8,19 @@ const Dashboard = () => {
   // console.log("error", error);
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    const getAssets = async () => {
-      try {
-        const res = await fetch("/localhost:4000/assets");
-        const assets = await res.json();
-        setData(assets);
-      } catch (error) {
-        console.log("erreur:", error);
-        throw error;
-      }
-    };
-    getAssets();
-  }, []);
+  // useEffect(() => {
+  //   const getAssets = async () => {
+  //     try {
+  //       const res = await fetch("/localhost:4000/assets");
+  //       const assets = await res.json();
+  //       setData(assets);
+  //     } catch (error) {
+  //       console.log("erreur:", error);
+  //       throw error;
+  //     }
+  //   };
+  //   getAssets();
+  // }, []);
 
   // if (error!.message)
   // return (

@@ -4,6 +4,7 @@ const Ajv = require("ajv");
 const multicoin = require("multicoin-address-validator");
 const { ulid } = require("ulid");
 const { Big } = require("big.js");
+const cors = require("cors");
 
 const app = express();
 const ajv = new Ajv();
@@ -61,6 +62,7 @@ const assets = {
 
 app.use(morgan("combined"));
 app.use(express.json());
+app.use(cors());
 
 app.use(function (req, res, next) {
   if (
