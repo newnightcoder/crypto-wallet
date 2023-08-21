@@ -12,7 +12,7 @@ const port = 4000;
 
 const username = "bob";
 const password = "abc123";
-const sessionTime = parseInt(process.env.TOKEN_LIFETIME ?? 30 * 60 * 1000);
+const sessionTime = parseInt(process.env.TOKEN_LIFETIME ?? 30 * 60 * 1000); // 30min in ms
 
 let token = btoa(Date.now());
 

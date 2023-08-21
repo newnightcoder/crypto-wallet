@@ -1,10 +1,26 @@
+import { useEffect, useState } from "react";
+
 const Dashboard = () => {
   // const token = localStorage.getItem("token");
   // const { data, error } = useGetAssets();
   // console.log("token on dashboard page", token);
   // console.log("assets", data);
   // console.log("error", error);
-  const data: string[] = [];
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const getAssets = async () => {
+      try {
+        const res = await fetch("/localhost:4000/assets");
+        const assets = await res.json();
+        setData(assets);
+      } catch (error) {
+        console.log("erreur:", error);
+        throw error;
+      }
+    };
+    getAssets();
+  }, []);
 
   // if (error!.message)
   // return (
@@ -32,9 +48,7 @@ const Dashboard = () => {
           ))}
         </div>
       ) : (
-        <div className="bg-black p-2 text-white text-center border border-red-500">
-          loader
-        </div>
+        <div className="bg-black p-2 text-white text-center">loader</div>
       )}
     </div>
   );

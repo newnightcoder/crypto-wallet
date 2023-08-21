@@ -6,7 +6,7 @@ const Navbar = () => {
       <span className="justify-self-start px-4 text-blue-600 font-bold text-xl">
         mywallet
       </span>
-      <nav className="hidden w-full max-w-7xl h-full justify-self-center md:flex items-center justify-evenly text-black">
+      <nav className="hidden w-full max-w-4xl 2xl:max-w-6xl h-full justify-self-center md:flex items-center justify-evenly text-black">
         <NavLink to={"/"} className="px-4">
           Portfolio
         </NavLink>
