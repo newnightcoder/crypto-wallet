@@ -78,18 +78,33 @@ app.use(function (req, res, next) {
 });
 
 app.use(function (req, res, next) {
-  console.log(req.path, req.header("authorization"));
-  if (
-    req.path !== "/token" &&
-    (req.header("authorization") !== token ||
-      parseInt(atob(token)) < Date.now() - sessionTime)
-  ) {
-    return res.status(401).json({
-      message: "unauthorized",
-    });
-  } else {
-    next();
+  console.log("HEADER", req.header("authorization"));
+  console.log("EXPIRY TEST", parseInt(atob(token)) < Date.now() - sessionTime);
+  console.log("token", token, "session time", sessionTime);
+  console.log(
+    "parse du token",
+    parseInt(atob(token)),
+    "difference",
+    Date.now() - sessionTime,
+    "calcul",
+    parseInt(atob(token)) - (Date.now() - sessionTime)
+  );
+  console.log(typeof req.header("authorization"), typeof token);
+
+  if (req.path !== "/token") {
+    if (parseInt(atob(token)) < Date.now() - sessionTime) {
+      return res.status(401).json({
+        message: "session expired",
+      });
+    }
+    if (!req.header("authorization").includes(token)) {
+      return res.status(401).json({
+        message: "access unauthorized",
+      });
+    }
   }
+  console.log("ALL GOOD BOY!");
+  next();
 });
 
 app.use(function (err, req, res, next) {
