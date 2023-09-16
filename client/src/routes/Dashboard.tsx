@@ -36,7 +36,7 @@ const Dashboard = () => {
       <div
         className={`border h-96 w-64 ${
           assets.length === 0 && !error ? "animate-pulse" : ""
-        } bg-gray-100 flex items-center`}
+        } bg-gray-100 flex items-center justify-center`}
       >
         {assets.length > 0 ? (
           <div>

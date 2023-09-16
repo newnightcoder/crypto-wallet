@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from "react-router-dom";
-import { Footer, Home, Navbar } from "../components";
+import { Footer, HomeHeader, Navbar } from "../components";
 
 const Layout = () => {
   const { pathname } = useLocation();
@@ -13,9 +13,8 @@ const Layout = () => {
         !isDashboard && `bg-[url('assets/blockchain_unsplashed.jpg')]`
       } bg-cover bg-no-repeat bg-center`}
     >
+      {isLandingPage && <HomeHeader />}
       {isDashboard && <Navbar />}
-      {isLandingPage && <Home />}
-      {/*CHILDREN */}
       <Outlet />
       {!isLandingPage && <Footer />}
     </div>
