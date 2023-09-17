@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { Footer, HomeHeader, Navbar } from "../components";
 
-const Layout = () => {
+const Home = () => {
   const { pathname } = useLocation();
   const isLandingPage = pathname === "/";
   const isLoginPage = pathname === "/login";
@@ -21,4 +21,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default Home;

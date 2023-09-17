@@ -72,6 +72,7 @@ const LoginForm = () => {
       <form
         onSubmit={handleSubmit}
         className="flex flex-col items-start justify-center space-y-6"
+        autoComplete="off"
       >
         <div className="w-full flex flex-col items-start justify-center">
           <label className="font-bold" htmlFor="username">
@@ -79,10 +80,12 @@ const LoginForm = () => {
           </label>
           <input
             className="w-full py-1.5 border border-gray-400 hover:border-blue-500 transition-all duration-300 rounded-md px-2"
+            role={"presentation"}
             id="username"
-            name="username"
+            // name="username"
             type="text"
             value={username}
+            autoComplete="new-username"
             onChange={(e) => handleChange(e, "username")}
           />
         </div>
@@ -92,9 +95,11 @@ const LoginForm = () => {
           </label>
           <input
             className="w-full py-1.5 border border-gray-400 hover:border-blue-500 rounded-md px-2"
+            role={"presentation"}
             id="password"
-            name="password"
+            // name="password"
             type="password"
+            autoComplete="new-password"
             value={password}
             onChange={(e) => handleChange(e, "password")}
           />
@@ -105,14 +110,20 @@ const LoginForm = () => {
         <button
           type="submit"
           disabled={btnDisabled}
-          className="py-2 w-full self-center rounded-lg bg-black disabled:bg-blue-400 text-white"
+          className="py-2 w-full self-center rounded-lg bg-black disabled:bg-gray-400 text-white"
         >
           {isLoading ? "loading" : "Login"}
         </button>
       </form>
-      <div className="w-max border relative before:block before:absolute before:-left-full before:top-[50%] before:h-[1px] before:w-full before:bg-gray-400 ">
-        Or with
+      <div className="relative flex flex-col">
+        <hr className="border-gray-300" />
+        <div className="w-max px-6 absolute left-1/2 -translate-x-1/2 -translate-y-1/2 text-gray-400 bg-white">
+          OR
+        </div>
       </div>
+      <button className="py-1.5 w-full self-center rounded-lg bg-white text-black outline outline-1">
+        Continue with Google
+      </button>
     </div>
   );
 };

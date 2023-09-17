@@ -1,12 +1,12 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AuthProvider } from "./auth/authContext";
 import { ErrorComponent } from "./components";
-import { Dashboard, Login, Root } from "./routes";
+import { Dashboard, Home, Login } from "./routes";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <Home />,
     errorElement: <ErrorComponent />,
   },
   {
@@ -18,6 +18,20 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <Dashboard />,
     errorElement: <ErrorComponent />,
+    children: [
+      {
+        path: "/dashboard/portfolio",
+        element: <>Porfolio page</>,
+      },
+      {
+        path: "/dashboard/payment",
+        element: <>payment page</>,
+      },
+      {
+        path: "/dashboard/transactions",
+        element: <>transactions page</>,
+      },
+    ],
   },
 ]);
 
